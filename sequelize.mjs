@@ -6,7 +6,7 @@ const sequelize = new Sequelize({
 });
 
 sequelize
-  .sync({ alter: true })
+  .sync()
   .then(() => {
     console.log("All models were syncronized successfully");
   })
