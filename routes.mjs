@@ -10,6 +10,7 @@ import {
   patchRecord,
   deleteRecord,
   getRecordsJoinModel,
+  headUniqueRecord,
 } from "./functions.mjs";
 
 const router = express.Router();
@@ -18,6 +19,9 @@ router
   .route("/utilizatori")
   .get(async (request, response) => getRecords(Utilizator, request, response))
   .post(async (request, response) => postRecord(Utilizator, request, response))
+  .head(async (request, response) =>
+    headUniqueRecord(Utilizator, request, response)
+  )
   .delete(async (request, response) =>
     deleteRecords(Utilizator, request, response)
   );

@@ -215,9 +215,9 @@ Proiect.belongsTo(Utilizator, { foreignKey: "utilizatorId" });
 Proiect.hasMany(Bug, { foreignKey: "proiectId" });
 Bug.belongsTo(Proiect, { foreignKey: "proiectId" });
 
-// async function initialize() {
-//   await sequelizeConexiune.authenticate();
-//   await sequelizeConexiune.sync({ force: true });
-// }
+async function initialize() {
+  await sequelizeConexiune.authenticate();
+  await sequelizeConexiune.sync({ force: true });
+}
 
 export { initialize, Utilizator, Echipa, Proiect, Bug, Mp, Tst };

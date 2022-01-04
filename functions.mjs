@@ -213,9 +213,34 @@ async function deleteRecord(Model, request, response) {
 
 async function headRecord(Model, request, response) {
   try {
-    console.log(request.params.id);
-    console.log(Model.findByPk(request.params.id));
-    response.status((await Model.findByPk(request.params.id)) ? 204 : 404);
+    // console.log(request.params.id);
+    // console.log(Model.findByPk(request.params.id));
+    response
+      .status((await Model.findByPk(request.params.id)) ? 204 : 404)
+      .send();
+  } catch (error) {
+    response.status(500).json(error);
+  }
+}
+
+async function headUniqueRecord(Model, request, response) {
+  try {
+    let records = await Model.findAll();
+
+    if (records.length > 0) {
+      let record = records.map(
+        (e) => e.email == request.body.email && e.parola == request.body.parola
+      );
+      console.log(record);
+      if (record) {
+        response.status(204).send();
+        //response.status(200).json(records);
+      } else {
+        response.status(404).send();
+      }
+    } else {
+      console.log("nu");
+    }
   } catch (error) {
     response.status(500).json(error);
   }
@@ -231,4 +256,5 @@ export {
   patchRecord,
   deleteRecord,
   getRecordsJoinModel,
+  headUniqueRecord,
 };
